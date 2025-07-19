@@ -1,4 +1,4 @@
-import { EtapeResponse } from "./EtapeResponse";
+import { EtapeResponse } from "../EtapeResponse";
 
 /**
  * Type représentant la réponse d'une chasse au trésor.

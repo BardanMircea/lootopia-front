@@ -1,7 +1,7 @@
 /**
  * Type représentant un repère RA associé à une étape de chasse au trésor.
  */
-export type RepereRa = {
+export type RepereRaResponse = {
     /** Identifiant unique du repère */
     id: number;
     
@@ -11,6 +11,9 @@ export type RepereRa = {
     /** URL ou chemin de l'image du marker */
     imageMarker: string;
     
+    /** Identifiant de la chasse associée */
+    chasseId: number; 
+
     /** Identifiant de l'étape associée (optionnel, selon le besoin) */
     etapeId?: number;
 }

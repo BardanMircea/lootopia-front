@@ -1,7 +1,10 @@
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
+import { register } from "@/constants/services/AuthService";
+import { RegistrationRequest } from "@/constants/types/Request/RegistrationRequest";
 import React, { useState } from "react";
 import { Alert, Button, StyleSheet, Switch, Text, TextInput, View } from "react-native";
+import { Config } from "react-native-config";
 import PasswordChecklist from "react-password-checklist";
 
 export default function RegistrationForm() {
@@ -18,13 +21,32 @@ export default function RegistrationForm() {
     passwordValid &&
     rgpdConsent;
 
-  const handleSubmit = () => {
+  const handleSubmit = async (): Promise<void> => {
     if (!email || !pseudo || !motDePasse || !rgpdConsent) {
       Alert.alert("Erreur", "Veuillez remplir tous les champs et accepter le RGPD.");
       return;
     }
+
+    const request: RegistrationRequest = {
+        email,
+        pseudo,
+        motDePasse,
+        rgpdConsent,
+    }
+
+    try 
+    {
+        console.log(Config.API_URL)
+        const response = await register(request);
+    }
+    catch (error) {
+        Alert.alert("Erreur", "Une erreur est survenue lors de l'inscription.");
+        console.error(error);
+        return;
+    }
+
     // Traitement de l'inscription ici
-    Alert.alert("Succès", "Inscription réussie !");
+    Alert.alert("Succès", "Inscription réussie ! Veuillez confirmer votre email en cliquant sur le lien envoyé à votre adresse email.");
   };
 
   return (
@@ -92,7 +114,7 @@ export default function RegistrationForm() {
             <Text style={styles.rgpdText}>J'accepte la politique de confidentialité (RGPD)</Text>
         </View>
 
-        <Button title="S'inscrire" onPress={handleSubmit} disabled={isFormValid}/>
+        <Button title="S'inscrire" onPress={handleSubmit} disabled={!isFormValid}/>
         </View>
     </ParallaxScrollView>
   );
@@ -134,3 +156,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+

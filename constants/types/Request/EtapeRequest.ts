@@ -1,4 +1,4 @@
-import { RepereRa } from "./RepereRa";
+import { RepereRaRequest } from "./RepereRaRequest";
 
 /**
  * Type représentant une requête de création/modification d'une étape de chasse au trésor.
@@ -26,5 +26,5 @@ export type EtapeRequest = {
     longitudeCache?: number;
     
     /** Repère RA pour validation par repère (optionnel) */
-    repereRa?: RepereRa; // Remplacer 'any' par le type approprié si défini ailleurs
+    repereRa?: RepereRaRequest; // Remplacer 'any' par le type approprié si défini ailleurs
 }
